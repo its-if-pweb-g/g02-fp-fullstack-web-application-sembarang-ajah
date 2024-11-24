@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/K32wTABb)
+# G02-Final-Project: Fullstack Web Application
 
-## Getting Started
+## Nama Kelompok : `Sembarang Ajah`
 
-First, run the development server:
+## Anggota Kelompok
+| NRP | Nama |
+|:-----------:|:--------:|
+| 5025231022  | Muhammad Zufar Al Hafidz  |
+| 5025xxxxxx  | xxxxxxxxxxxxxxx  |
+| 5025xxxxxx  | xxxxxxxxxxxxxxx  |
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Aplikasi Web yang dibuat
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+E-commerce
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Fitur yang dibuat
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Landing Page
+- CRUD Produk
+- Fitur Pencarian
+- Autentikasi Penjual/Pembeli
 
-## Learn More
+### Link Deployment (jika ada)
 
-To learn more about Next.js, take a look at the following resources:
+## Teknologi yang digunakan
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Typescript (NextJS)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Cara menjalankan aplikasi
 
-## Deploy on Vercel
+`npm run dev`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Progress pembuatan dan pembagian tugas per anggota
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Dokumentasi website
+`masukkan gambar dari website yang dibuat`
