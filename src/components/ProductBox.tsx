@@ -14,17 +14,17 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, image, price, descript
   const href = `/${seller}/${product}`;
   return (
     <Link href={href}>
-      <div className='rounded-md shadow-md overflow-hidden'>
+      <div className='rounded-md shadow-md dark:bg-zinc-800 overflow-hidden'>
         <Image
           height={192}
           width={256}
           src={image}
           alt={product}
           className="w-full h-48 object-cover" />
-        <div className=" p-4">
-          <h1 className="text-lg font-semibold">{product}</h1>
-          <p className="mt-2">{price}</p>
-          <p className="text-foreground">{ description }</p>
+        <div className="p-4">
+          <p className="text-base font-regular leading-snug line-clamp-2">{product}</p>
+          <p className="text-lg font-semibold">{price}</p>
+          <p className="">{ description }</p>
         </div>
       </div>
     </Link>

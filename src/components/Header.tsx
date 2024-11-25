@@ -1,4 +1,5 @@
 import React from 'react';
+import ToggleTheme from './ToggleTheme';
 
 const Header: React.FC = () => {
   return (
@@ -9,6 +10,7 @@ const Header: React.FC = () => {
           <li className="ml-5"><a href="#home" className=" no-underline">Home</a></li>
           <li className="ml-5"><a href="#about" className="no-underline">About</a></li>
           <li className="ml-5"><a href="#contact" className="no-underline">Contact</a></li>
+          <li className="ml-5"><ToggleTheme /></li>
         </ul>
       </nav>
     </header>
