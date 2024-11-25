@@ -1,24 +1,33 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ProductBoxProps {
-  title: string;
+  product: string;
   image: string;
   price: string;
+  description: string;
+  seller: string;
 }
 
-const ProductBox: React.FC<ProductBoxProps> = ({ title, image, price }) => {
+const ProductBox: React.FC<ProductBoxProps> = ({ product, image, price, description, seller }) => {
+  const href = `/${seller}/${product}`;
   return (
-    <div className="bg-slate-200 rounded-md p-4">
-      <Image
-        height={192}
-        width={256}
-        src={image}
-        alt={title}
-        className="w-full h-48 object-cover" />
-      <h1 className="text-black text-lg font-semibold mt-4">{title}</h1>
-      <p className="text-slate-600 mt-2">{price}</p>
-    </div>
+    <Link href={href}>
+      <div className='rounded-md shadow-md overflow-hidden'>
+        <Image
+          height={192}
+          width={256}
+          src={image}
+          alt={product}
+          className="w-full h-48 object-cover" />
+        <div className=" p-4">
+          <h1 className="text-lg font-semibold">{product}</h1>
+          <p className="mt-2">{price}</p>
+          <p className="text-foreground">{ description }</p>
+        </div>
+      </div>
+    </Link>
   )
 }
 
