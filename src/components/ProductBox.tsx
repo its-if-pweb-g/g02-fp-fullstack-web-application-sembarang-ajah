@@ -16,8 +16,8 @@ const ProductBox: React.FC<ProductBoxProps> = ({ title, image, price }) => {
         src={image}
         alt={title}
         className="w-full h-48 object-cover" />
-      <h1 className="text-lg font-semibold mt-4">{title}</h1>
-      <p className="mt-2">{price}</p>
+      <h1 className="text-black text-lg font-semibold mt-4">{title}</h1>
+      <p className="text-slate-600 mt-2">{price}</p>
     </div>
   )
 }
