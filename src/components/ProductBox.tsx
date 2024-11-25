@@ -9,7 +9,7 @@ interface ProductBoxProps {
 
 const ProductBox: React.FC<ProductBoxProps> = ({ title, image, price }) => {
   return (
-    <div className="bg-slate-900 rounded-md shadow-md p-4">
+    <div className="bg-slate-200 rounded-md p-4">
       <Image
         height={192}
         width={256}
@@ -17,7 +17,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ title, image, price }) => {
         alt={title}
         className="w-full h-48 object-cover" />
       <h1 className="text-lg font-semibold mt-4">{title}</h1>
-      <p className="text-gray-500 mt-2">{price}</p>
+      <p className="mt-2">{price}</p>
     </div>
   )
 }
