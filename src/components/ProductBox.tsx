@@ -14,7 +14,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, image, price, descript
   const href = `/${seller}/${product}`;
   return (
     <Link href={href}>
-      <div className='rounded-md shadow-md dark:bg-zinc-800 overflow-hidden'>
+      <div className='rounded-md shadow-md bg-background-card overflow-hidden'>
         <Image
           height={192}
           width={256}
