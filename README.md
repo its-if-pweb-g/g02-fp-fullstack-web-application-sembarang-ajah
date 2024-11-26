@@ -23,6 +23,8 @@ E-commerce
 
 ### Link Deployment (jika ada)
 
+https://sembarang-aja.vercel.app/
+
 ## Teknologi yang digunakan
 
 Typescript (NextJS)
