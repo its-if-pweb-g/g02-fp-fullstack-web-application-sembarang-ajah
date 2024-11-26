@@ -1,6 +1,5 @@
 import {useRouter} from 'next/router';
 
-
 export default function Shop() {
   const router = useRouter();
   const {shopName} = router.query;
