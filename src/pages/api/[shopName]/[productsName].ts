@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://user-g:g-for-goodluck@db.nafkhanzam.com/pweb-g";
 const client = new MongoClient(MONGO_URI);
-const dbName = "ecommerce";
+const dbName = "pweb-g";
 
 type Product =
 {
