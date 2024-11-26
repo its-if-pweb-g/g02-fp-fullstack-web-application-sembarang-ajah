@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import '@/app/globals.css';
-import Header from '@/components/Header';
+import '@/app/styles/globals.css';
 
 export default function ItemsName() {
   const router = useRouter();
@@ -19,7 +18,6 @@ export default function ItemsName() {
 
   return (
     <div>
-      <Header />
       <h1>This is {itemsName} from {shopName}.</h1>
     </div>
   );

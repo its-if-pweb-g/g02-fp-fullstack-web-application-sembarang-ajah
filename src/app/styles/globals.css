@@ -26,10 +26,12 @@ body {
   color: var(--foreground) ;
   background: var(--background) ;
   font-family: Arial, Helvetica, sans-serif;
+  transition: 0.2s ease-out all;
 }
 
 .dark .bg-background-card{
   background: var(--backgroundCard) ;
+  /* transition: 0.3s; */
 }
 
 /* Custom scrollbar styles */
