@@ -1,20 +1,30 @@
+// components/Products.tsx
 import ProductBox from '@/components/ProductBox';
-import placeholderImage from '../../public/placeholder1.jpg';
 
-export default function Products() {
-  const productNumber: number = 6;
+interface Product {
+  product: string;
+  price: string;
+  description: string;
+  seller: string;
+  image: string;
+}
 
+interface ProductsProps {
+  products: Product[];
+}
+
+export default function Products({ products }: ProductsProps) {
   return (
     <div className="overflow-x-auto p-1">
       <div className="flex gap-4 mt-2">
-        {Array.from({ length: productNumber }).map((_, index) => (
+        {products.map((product, index) => (
           <div key={index} className="min-w-[13rem]">
             <ProductBox
-              image={placeholderImage.src}
-              product="Air Mineral Cleo Manis 5c/12t Up to 12Ghz with Turbo Speed Boost"
-              price="Rp. 4.500,00"
-              description='Jakarta'
-              seller="Cleo"
+              image={product.image}
+              product={product.product}
+              price={product.price}
+              description={product.description}
+              seller={product.seller}
             />
           </div>
         ))}

@@ -14,7 +14,7 @@ export default function ItemsName() {
   }, []);
 
   if (!isClient) {
-    return null; // or a loading spinner
+    return null;
   }
 
   return (
