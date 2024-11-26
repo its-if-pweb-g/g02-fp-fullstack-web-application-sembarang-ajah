@@ -8,7 +8,7 @@
 |:-----------:|:--------:|
 | 5025231022  | Muhammad Zufar Al Hafidz  |
 | 5025xxxxxx  | xxxxxxxxxxxxxxx  |
-| 5025xxxxxx  | xxxxxxxxxxxxxxx  |
+| 5025231287  | Nadine Angela Joelita Irawan  |
 
 ## Aplikasi Web yang dibuat
 
@@ -34,6 +34,7 @@ Typescript (NextJS)
 `npm run dev`
 
 ## Progress pembuatan dan pembagian tugas per anggota
+    - Selasa, 26 November 2024: Membuat sistem CRUD produk (Nadine)
 
 ## Dokumentasi website
 `masukkan gambar dari website yang dibuat`

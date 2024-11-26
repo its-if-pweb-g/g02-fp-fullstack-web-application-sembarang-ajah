@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse} from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient } from "mongodb";
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://user-g:g-for-goodluck@db.nafkhanzam.com/pweb-g";
@@ -21,13 +21,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if(!shopName || !productsName)
     {
-        return res.status(400).json({ error: "The shop or product is not available" });
+        return res.status(400).json({ status: "error", error: "The shop or product is not available" });
     }
 
     try
     {
-        await client.connect();
-        const db = client.db(dbName);
+        const db = (await client.connect()).db(dbName);
         const collection = db.collection('products');
 
         if(req.method == "GET")
@@ -35,11 +34,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const product = await collection.findOne({ shopName, productsName });
             if(product)
             {
-                return res.status(200).json(product);
+                return res.status(200).json({ status: "success", data: product});
             }
             else
             {
-                return res.status(404).json({ error: "Product not found" });
+                return res.status(404).json({ status: "error", error: "Product not found" });
             }
         }
 
@@ -48,7 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const { price, stock, description } = req.body;
             if(!price || !stock || !description)
             {
-                return res.status(400).json({ error: "Missing product details" });
+                return res.status(400).json({ status: "error", error: "Missing product details" });
             }
 
             const newProduct = 
@@ -64,8 +63,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const result = await collection.insertOne(newProduct);
             return res.status(201).json
             ({
+                status: "success",
                 message: "Product created",
-                product:
+                data:
                 { 
                     _id: result.insertedId, 
                     ...newProduct 
@@ -78,7 +78,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const { price, stock, description } = req.body;
             if(!price && !stock && !description)
             {
-                return res.status(400).json({ error: "No update details provided" });
+                return res.status(400).json({ status: "error", error: "No update details provided" });
             }
 
             const updateFields: Partial<Product> = {};
@@ -94,10 +94,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             if(result.matchedCount === 0)
             {
-                return res.status(404).json({ error: "Product not found" });
+                return res.status(404).json({ status: "error", error: "Product not found" });
             }
 
-            return res.status(200).json({ message: "Product updated" });
+            return res.status(200).json({ status: "success", message: "Product updated" });
         }
 
         if(req.method === "DELETE")
@@ -106,21 +106,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             
             if(result.deletedCount === 0)
             {
-                return res.status(404).json({ error: "Product not found" });
+                return res.status(404).json({ status: "error", error: "Product not found" });
             }
 
-            return res.status(200).json({ message: "Product deleted" });
+            return res.status(200).json({ status: "success", message: "Product deleted" });
         }
 
-        return res.status(405).json({ error: `Method ${req.method} not allowed` });
+        return res.status(405).json({ status: "error", error: `Method ${req.method} not allowed` });
     }
     catch(error)
     {
         console.error(error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
-    finally
-    {
-        await client.close();
+        return res.status(500).json({ status: "error", error: "Internal server error" });
     }
 }
