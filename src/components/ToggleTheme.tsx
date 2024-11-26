@@ -1,6 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 
+// icons and css
+import '@/app/styles/extras.css'
+import { MdOutlineLightMode, MdOutlineDarkMode } from "react-icons/md";
+
 const ToggleTheme: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -33,9 +37,9 @@ const ToggleTheme: React.FC = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 bg-gray-200 dark:bg-gray-800 text-black dark:text-white rounded"
+      className="p-2 bg-background-card rounded-md"
     >
-      {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+      {isDarkMode ? <MdOutlineLightMode size={30}/> : <MdOutlineDarkMode size={30}/>}
     </button>
   );
 };

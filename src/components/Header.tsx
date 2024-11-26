@@ -1,16 +1,28 @@
 import React from 'react';
+import Link from 'next/link';
 import ToggleTheme from './ToggleTheme';
 // import '@/app/globals.css';
+
+// icons and css
+import { FaShoppingCart } from "react-icons/fa";
+import '@/app/styles/extras.css';
 
 const Header: React.FC = () => {
   return (
     <header className=" p-4 flex justify-between items-center">
-      <h1 className="m-0">E Commerce</h1>
+      <Link href="/" className="flex flex-row items-center gap-2">
+        <FaShoppingCart size={30} />
+        <h1 className="m-0 text-xl font-semibold tracking-tight">Sembarang Ajah</h1>
+      </Link>
       <nav>
-        <ul className="list-none flex m-0 p-0">
+        <ul className="list-none flex m-0 p-0 items-center">
           <li className="ml-5"><a href="#home" className=" no-underline">Home</a></li>
           <li className="ml-5"><a href="#about" className="no-underline">About</a></li>
-          <li className="ml-5"><a href="#contact" className="no-underline">Contact</a></li>
+          <li className="ml-5 bg-background-card hover:bg-zinc-500 transition-colors p-3 rounded-md">
+            <Link href="/login" className="font-semibold tracking-tight">
+              Login
+            </Link>
+          </li>
           <li className="ml-5"><ToggleTheme /></li>
         </ul>
       </nav>

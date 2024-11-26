@@ -1,0 +1,11 @@
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #ffffff ;
+    --foreground: #171717 ;
+    --backgroundCard: #f9f9f9 ;
+  }
+}
+
+.bg-background-card {
+  background: var(--backgroundCard);
+}
