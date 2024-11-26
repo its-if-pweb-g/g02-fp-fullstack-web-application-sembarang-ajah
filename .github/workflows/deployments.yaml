@@ -18,7 +18,7 @@ jobs:
 
       - name: Build project
         env:
-          NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
+          NEXT_PUBLIC_API_BASE_URL: https://sembarang-ajah.vercel.app
         run: npm run build
 
       - name: Deploy to Vercel
