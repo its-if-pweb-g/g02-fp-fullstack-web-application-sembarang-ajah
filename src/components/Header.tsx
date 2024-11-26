@@ -1,5 +1,6 @@
 import React from 'react';
 import ToggleTheme from './ToggleTheme';
+// import '@/app/globals.css';
 
 const Header: React.FC = () => {
   return (

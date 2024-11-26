@@ -11,7 +11,9 @@ interface ProductBoxProps {
 }
 
 const ProductBox: React.FC<ProductBoxProps> = ({ product, image, price, description, seller }) => {
-  const href = `/${seller}/${product}`;
+  const encodedProduct = encodeURIComponent(product);
+  const encodedSeller = encodeURIComponent(seller);
+  const href = `/${encodedSeller}/${encodedProduct}`;
   return (
     <Link href={href}>
       <div className='rounded-md shadow-md bg-background-card overflow-hidden'>
