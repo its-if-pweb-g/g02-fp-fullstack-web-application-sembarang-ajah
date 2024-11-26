@@ -18,7 +18,7 @@ const Header: React.FC = () => {
         <ul className="list-none flex m-0 p-0 items-center">
           <li className="ml-5"><a href="#home" className=" no-underline">Home</a></li>
           <li className="ml-5"><a href="#about" className="no-underline">About</a></li>
-          <li className="ml-5 bg-background-card hover:bg-zinc-500 transition-colors p-3 rounded-md">
+          <li className="ml-5 bg-background-card2 hover:bg-zinc-500 transition-colors p-3 rounded-md">
             <Link href="/login" className="font-semibold tracking-tight">
               Login
             </Link>

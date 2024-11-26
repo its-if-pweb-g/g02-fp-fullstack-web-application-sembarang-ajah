@@ -2,6 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+// import '@/app/styles/globals.css';
+
 interface ProductBoxProps {
   product: string;
   image: string;

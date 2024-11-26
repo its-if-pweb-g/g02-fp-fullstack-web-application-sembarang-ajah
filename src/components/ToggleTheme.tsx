@@ -37,7 +37,7 @@ const ToggleTheme: React.FC = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 bg-background-card rounded-md"
+      className="p-2 bg-background-card2 rounded-md"
     >
       {isDarkMode ? <MdOutlineLightMode size={30}/> : <MdOutlineDarkMode size={30}/>}
     </button>
