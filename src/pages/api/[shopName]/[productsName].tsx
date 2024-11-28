@@ -19,12 +19,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 {
     const { shopName, productsName } = req.query;
 
-    console.log("Shop Name:", req.query.shopName);
-    console.log("Product Name:", req.query.productsName);
-
-    console.log("Request Method:", req.method);
-    console.log("Request Body:", req.body);
-
     if(!shopName || !productsName)
     {
         return res.status(400).json({ status: "error", error: "The shop or product is not available" });
@@ -51,10 +45,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if(req.method === "POST")
         {
             const { price, stock, description } = req.body;
-
-            console.log("Price:", price);
-            console.log("Stock:", stock);
-            console.log("Description:", description);
 
             if(!price || !stock || !description)
             {
