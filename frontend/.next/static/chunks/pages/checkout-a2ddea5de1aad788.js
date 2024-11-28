@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[732],{3656:(u,_,e)=>{(window.__NEXT_P=window.__NEXT_P||[]).push(["/checkout",function(){return e(9516)}])},9516:(u,_,e)=>{"use strict";e.r(_),e.d(_,{default:()=>c});var n=e(2540);function c(){return(0,n.jsx)("h1",{children:"This is checkout."})}}},u=>{var _=_=>u(u.s=_);u.O(0,[636,593,792],()=>_(3656)),_N_E=u.O()}]);
