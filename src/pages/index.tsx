@@ -9,9 +9,11 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ products }) => {
   return (
     <div>
-      <section className='p-4'>
+      <section className="p-4">
         <Carousel />
-        <h1 className="text-2xl font-semibold tracking-tight pt-10">Trending Products</h1>
+        <h1 className="text-2xl font-semibold tracking-tight pt-10">
+          Trending Products
+        </h1>
         <ProductsPage products={products} />
       </section>
     </div>
