@@ -1,4 +1,4 @@
-import "@/app/globals.css";
+import "@/app/styles/globals.css";
 export default function Carousel() {
   return (
     <div className="p-4 min-h-96 w-full bg-background-card bg-zinc-100 rounded-md">

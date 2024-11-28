@@ -2,6 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+// import '@/app/styles/globals.css';
+
 interface ProductBoxProps {
   product: string;
   image: string;
@@ -16,7 +18,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, image, price, descript
   const href = `/${encodedSeller}/${encodedProduct}`;
   return (
     <Link href={href}>
-      <div className='rounded-md shadow-md bg-background-card overflow-hidden h-80'>
+      <div className='rounded-md shadow-md bg-background-card overflow-hidden h-80 w-[13rem]'>
         <Image
           height={192}
           width={256}
