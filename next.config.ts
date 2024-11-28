@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: '/sembarang-aja.com/:shopName/:productsName',
+        destination: '/api/:shopName/:productsName',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
