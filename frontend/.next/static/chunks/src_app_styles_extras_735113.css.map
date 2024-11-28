@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack://[project]/src/app/styles/extras.css"],"sourcesContent":["@media (prefers-color-scheme: light) {\r\n  :root {\r\n    --background: #ffffff ;\r\n    --foreground: #171717 ;\r\n    --backgroundCard: #f9f9f9 ;\r\n  }\r\n}\r\n\r\n.bg-background-card {\r\n  background: var(--backgroundCard);\r\n}"],"names":[],"mappings":"AAAA;EACE;;;;;;;AAOF"}},
-    {"offset": {"line": 12, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}
