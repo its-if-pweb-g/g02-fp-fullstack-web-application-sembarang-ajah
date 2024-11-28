@@ -1,0 +1,14 @@
+/* [project]/src/app/styles/extras.css [client] (css) */
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #fff;
+    --foreground: #171717;
+    --backgroundCard: #f9f9f9;
+  }
+}
+
+.bg-background-card {
+  background: var(--backgroundCard);
+}
+
+/*# sourceMappingURL=src_app_styles_extras_735113.css.map*/

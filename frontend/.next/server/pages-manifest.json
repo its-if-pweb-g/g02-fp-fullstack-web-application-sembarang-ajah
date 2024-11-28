@@ -1,0 +1,3 @@
+{
+  "/api/[shopName]/[productsName]": "pages/api/[shopName]/[productsName].js"
+}
