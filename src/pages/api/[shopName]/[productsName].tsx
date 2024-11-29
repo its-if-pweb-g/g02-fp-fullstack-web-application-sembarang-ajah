@@ -1,18 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { Database } from '@/types/supabase';
 
-const supabaseUrl = process.env.SUPABASE_URL as string;
-const supabaseKey = process.env.SUPABASE_KEY as string;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-type Product = {
-  shopName: string;
-  productsName: string;
-  price: number;
-  stock: number;
-  description: string;
-  createdAt: Date;
-};
+const supabase = createClient<Database>(
+  process.env.SUPABASE_URL as string,
+  process.env.SUPABASE_KEY as string
+);
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,9 +21,11 @@ export default async function handler(
 
   try {
     if (req.method == 'GET') {
-      const { data: product } = await supabase
-        .from<Product>('products')
+      const { data: product, error } = await supabase
+        .from('products')
         .select('*');
+      
+      console.log(error);
 
       if (product) {
         return res.status(200).json({ status: 'success', data: product });
@@ -41,36 +36,33 @@ export default async function handler(
       }
     }
 
-    // if(req.method === "POST")
-    // {
-    //     const { price, stock, description } = req.body;
-    //     if(!price || !stock || !description)
-    //     {
-    //         return res.status(400).json({ status: "error", error: "Missing product details" });
-    //     }
+    if(req.method === "POST")
+    {
+        const { price, stock, description } = req.body;
+        if(!price || !stock || !description)
+        {
+            return res.status(400).json({ status: "error", error: "Missing product details" });
+        }
 
-    //     const newProduct =
-    //     {
-    //         shopName,
-    //         productsName,
-    //         price,
-    //         stock,
-    //         description,
-    //         createdAt: new Date(),
-    //     };
-
-    //     const result = await collection.insertOne(newProduct);
-    //     return res.status(201).json
-    //     ({
-    //         status: "success",
-    //         message: "Product created",
-    //         data:
-    //         {
-    //             _id: result.insertedId,
-    //             ...newProduct
-    //         }
-    //     });
-    // }
+      const { error } = await supabase
+        .from('products')
+        .insert({
+          created_at: new Date().toISOString(),
+          shop_name: shopName,
+          name: productsName,
+          price: price,
+          stock: stock,
+          description: description
+        })
+      
+        return res.status(201).json
+        ({
+          status: "success",
+          message: "Product created",
+          data: data,
+          error: error
+        });
+    }
 
     // if(req.method === "PUT")
     // {
