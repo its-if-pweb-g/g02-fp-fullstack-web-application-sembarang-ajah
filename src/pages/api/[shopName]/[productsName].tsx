@@ -1,11 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { Database } from '@/types/supabase';
 
-const supabase = createClient<Database>(
+const supabase = createClient(
   process.env.SUPABASE_URL as string,
   process.env.SUPABASE_KEY as string
 );
+
+interface Product {
+  shop_name: string;
+  name: string;
+  price: number;
+  stock: number;
+  description: string;
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,11 +28,7 @@ export default async function handler(
 
   try {
     if (req.method == 'GET') {
-      const { data: product, error } = await supabase
-        .from('products')
-        .select('*');
-      
-      console.log(error);
+      const { data: product } = await supabase.from('products').select('*');
 
       if (product) {
         return res.status(200).json({ status: 'success', data: product });
@@ -36,15 +39,15 @@ export default async function handler(
       }
     }
 
-    if(req.method === "POST")
-    {
-        const { price, stock, description } = req.body;
-        if(!price || !stock || !description)
-        {
-            return res.status(400).json({ status: "error", error: "Missing product details" });
-        }
+    if (req.method === 'POST') {
+      const { price, stock, description } = req.body;
+      if (!price || !stock || !description) {
+        return res
+          .status(400)
+          .json({ status: 'error', error: 'Missing product details' });
+      }
 
-      const { error } = await supabase
+      const { data } = await supabase
         .from('products')
         .insert({
           created_at: new Date().toISOString(),
@@ -52,56 +55,62 @@ export default async function handler(
           name: productsName,
           price: price,
           stock: stock,
-          description: description
+          description: description,
         })
-      
-        return res.status(201).json
-        ({
-          status: "success",
-          message: "Product created",
-          data: data,
-          error: error
-        });
+        .select();
+
+      return res.status(201).json({
+        status: 'success',
+        message: 'Product created',
+        data: data,
+      });
     }
 
-    // if(req.method === "PUT")
-    // {
-    //     const { price, stock, description } = req.body;
-    //     if(!price && !stock && !description)
-    //     {
-    //         return res.status(400).json({ status: "error", error: "No update details provided" });
-    //     }
+    if (req.method === 'PUT') {
+      const { price, stock, description } = req.body;
+      if (!price && !stock && !description) {
+        return res
+          .status(400)
+          .json({ status: 'error', error: 'No update details provided' });
+      }
 
-    //     const updateFields: Partial<Product> = {};
-    //     if(price) updateFields.price = price;
-    //     if(stock) updateFields.stock = stock;
-    //     if(description) updateFields.description = description;
+      const updateFields: Partial<Product> = {};
+      if (price) updateFields.price = price;
+      if (stock) updateFields.stock = stock;
+      if (description) updateFields.description = description;
 
-    //     const result = await collection.updateOne
-    //     (
-    //         { shopName, productsName },
-    //         { $set: updateFields }
-    //     );
+      const result = await supabase
+        .from('products')
+        .update(updateFields)
+        .match({ shop_name: shopName, name: productsName });
 
-    //     if(result.matchedCount === 0)
-    //     {
-    //         return res.status(404).json({ status: "error", error: "Product not found" });
-    //     }
+      if (result.error) {
+        return res
+          .status(404)
+          .json({ status: 'error', error: 'Product not found' });
+      }
 
-    //     return res.status(200).json({ status: "success", message: "Product updated" });
-    // }
+      return res
+        .status(200)
+        .json({ status: 'success', message: 'Product updated' });
+    }
 
-    // if(req.method === "DELETE")
-    // {
-    //     const result = await collection.deleteOne({ shopName, productsName });
+    if (req.method === 'DELETE') {
+      const result = await supabase
+        .from('products')
+        .delete()
+        .match({ shop_name: shopName, name: productsName });
 
-    //     if(result.deletedCount === 0)
-    //     {
-    //         return res.status(404).json({ status: "error", error: "Product not found" });
-    //     }
+      if (result.error) {
+        return res
+          .status(404)
+          .json({ status: 'error', error: 'Product not found' });
+      }
 
-    //     return res.status(200).json({ status: "success", message: "Product deleted" });
-    // }
+      return res
+        .status(200)
+        .json({ status: 'success', message: 'Product deleted' });
+    }
 
     return res
       .status(405)
