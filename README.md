@@ -27,14 +27,30 @@ https://sembarang-aja.vercel.app/
 
 ## Teknologi yang digunakan
 
-Typescript (NextJS)
+NextJS 15.0.3 (Frontend + Backend)
+TailwindCSS
+Typescript
 
 ## Cara menjalankan aplikasi
 
-`npm run dev`
+```bash
+npm run dev
+```
 
 ## Progress pembuatan dan pembagian tugas per anggota
     - Selasa, 26 November 2024: Membuat sistem CRUD produk (Nadine)
+
+### 25 November 2024
+- Muhammad Zufar: Skeleton HTML + CSS dengan NextJS 15
+- Muhammad Zufar: Landing Page, Header, Carousel Skeleton, Popular Product Skeleton
+- Muhammad Zufar: Product Page Skeleton
+- Muhammad Zufar: Seller Page Skeleton
+
+### 26 November 2024
+- Muhammad Zufar: Header final fixed
+- Muhammad Zufar: Reactive Theme, pages refactoring
+- Muhammad Zufar: Vercel Deployment on branch "main"
+- Muhammad Zufar: Login + Register Page Skeleton
 
 ## Dokumentasi website
 `masukkan gambar dari website yang dibuat`

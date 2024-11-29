@@ -18,7 +18,7 @@ export default function Products({ products }: ProductsProps) {
     <div className="overflow-x-auto p-1">
       <div className="flex gap-4 mt-2">
         {products.map((product, index) => (
-          <div key={index} className="min-w-[13rem]">
+          <div key={index}>
             <ProductBox
               image={product.image}
               product={product.product}

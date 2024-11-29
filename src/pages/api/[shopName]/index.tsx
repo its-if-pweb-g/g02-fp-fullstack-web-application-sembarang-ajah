@@ -1,43 +1,47 @@
-import { MongoClient } from "mongodb";
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { createClient } from '@supabase/supabase-js';
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://user-g:g-for-goodluck@db.nafkhanzam.com/pweb-g";
-const client = new MongoClient(MONGO_URI);
-const dbName = "pweb-g";
+const supabase = createClient(
+  process.env.SUPABASE_URL as string,
+  process.env.SUPABASE_KEY as string
+);
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse)
-{
-    const { shopName } = req.query;
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { shopName } = req.query;
 
-    if(!shopName)
-    {
-        return res.status(400).json({ status: "error", error: "Shop name is required" });
-    }
+  if (!shopName) {
+    return res
+      .status(400)
+      .json({ status: 'error', error: 'Shop name is required' });
+  }
 
-    try
-    {
-        const db = (await client.connect()).db(dbName);
-        const collection = db.collection("products");
+  try {
+    if (req.method === 'GET') {
+      const { data: shopInfo } = await supabase
+        .from('products')
+        .select('*')
+        .eq('shop_name', shopName);
 
-        if(req.method === "GET")
-        {
-            const shopInfo = await collection.find({ shopName }).toArray();
-            if(shopInfo.length === 0)
-            {
-                return res.status(404).json({ status: "error", error: "Shop not found" });
-            }
-            return res.status(200).json({ status: "success", shopName, products: shopInfo });
-        }
-
-        return res.status(405).json({ status: "error", error: `Method ${req.method} not allowed` });
-    }
-    catch(error)
-    {
-        console.error(error);
-        return res.status(500).json({ status: "error", error: "Internal server error" });
-    }
-    finally
-    {
-        await client.close();
-    }
+      if (!shopInfo || shopInfo.length === 0) {
+        return res
+          .status(404)
+          .json({ status: 'error', error: 'Shop not found' });
+      }
+      return res
+        .status(200)
+        .json({ status: 'success', shopName, products: shopInfo });
+      }
+    
+    return res
+      .status(405)
+      .json({ status: 'error', error: `Method ${req.method} not allowed` });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ status: 'error', error: 'Internal server error' });
+  }
 }
