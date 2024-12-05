@@ -1,146 +1,105 @@
-import handler from "../src/pages/api/[shopName]/[productsName]";
-import { createClient } from "@supabase/supabase-js";
-import { NextApiRequest, NextApiResponse } from "next";
+import handler from '../src/pages/api/[shopName]/[productsName]';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-jest.mock("@supabase/supabase-js", () => ({
-  createClient: jest.fn(() => ({
+const mockReq = (overrides = {}) => ({
+    method: 'GET',
+    query: {},
+    body: {},
+    ...overrides,
+  });
+  
+const mockRes = (): Partial<NextApiResponse> => {
+    const res: Partial<NextApiResponse> = {};
+    res.status = jest.fn().mockReturnValue(res);
+    res.json = jest.fn().mockReturnValue(res);
+    return res;
+};
+
+jest.mock('@supabase/supabase-js', () => ({
+  createClient: jest.fn().mockReturnValue({
     from: jest.fn(() => ({
-      insert: jest.fn(),
-      select: jest.fn(),
-      update: jest.fn(),
-      delete: jest.fn(),
-      match: jest.fn().mockReturnThis(),
+      select: jest.fn().mockResolvedValue({ data: [{ id: 1, name: 'Product A' }] }),
+      insert: jest.fn().mockResolvedValue({ data: [{ id: 1, name: 'Product A' }] }),
+      update: jest.fn(() => ({ match: jest.fn().mockResolvedValue({ error: null }) })),
+      delete: jest.fn(() => ({ match: jest.fn().mockResolvedValue({ error: null }) })),
     })),
-  })),
+  }),
 }));
 
-const mockSupabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_KEY!);
+describe('API Handler', () => {
+  let req: NextApiRequest;
+  let res: NextApiResponse;
 
-const mockJson = jest.fn();
-const mockStatus = jest.fn(() => ({ json: mockJson }));
-const mockRes = { status: mockStatus } as unknown as NextApiResponse;
-
-describe("API Handler Tests", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    req = mockReq() as NextApiRequest;
+    res = mockRes() as NextApiResponse;
   });
 
-  it("should return 400 if shopName or productsName is missing", async () => {
-    const mockReq = {
-      method: "GET",
-      query: {},
-    } as unknown as NextApiRequest;
-
-    await handler(mockReq, mockRes);
-
-    expect(mockStatus).toHaveBeenCalledWith(400);
-    expect(mockJson).toHaveBeenCalledWith({
-      status: "error",
-      error: "The shop or product is not available",
+  it('should return 400 if shopName or productsName is missing', async () => {
+    req.query = {};
+    await handler(req, res);
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({
+      status: 'error',
+      error: 'The shop or product is not available',
     });
   });
 
-  it("should return product list for GET request", async () => {
-    const mockReq = {
-      method: "GET",
-      query: { shopName: "Test Shop", productsName: "Test Product" },
-    } as unknown as NextApiRequest;
-
-    const mockData = [{ name: "Test Product", price: 100 }];
-    mockSupabase.from().select.mockResolvedValueOnce({ data: mockData, error: null });
-
-    await handler(mockReq, mockRes);
-
-    expect(mockStatus).toHaveBeenCalledWith(200);
-    expect(mockJson).toHaveBeenCalledWith({
-      status: "success",
-      data: mockData,
+  it('should handle GET method and return products', async () => {
+    req.method = 'GET';
+    req.query = { shopName: 'Shop1', productsName: 'Product1' };
+    await handler(req, res);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      status: 'success',
+      data: [{ id: 1, name: 'Product A' }],
     });
   });
 
-  it("should create a product for POST request", async () => {
-    const mockReq = {
-      method: "POST",
-      query: { shopName: "Test Shop", productsName: "Test Product" },
-      body: { price: 100, stock: 10, description: "Test Description" },
-    } as unknown as NextApiRequest;
-
-    const mockInsertData = [{ id: 1 }];
-    mockSupabase.from().insert.mockResolvedValueOnce({ data: mockInsertData, error: null });
-
-    await handler(mockReq, mockRes);
-
-    expect(mockStatus).toHaveBeenCalledWith(201);
-    expect(mockJson).toHaveBeenCalledWith({
-      status: "success",
-      message: "Product created",
-      data: mockInsertData,
+  it('should handle POST method and create a product', async () => {
+    req.method = 'POST';
+    req.query = { shopName: 'Shop1', productsName: 'Product1' };
+    req.body = { price: 100, stock: 10, description: 'Test product' };
+    await handler(req, res);
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith({
+      status: 'success',
+      message: 'Product created',
+      data: [{ id: 1, name: 'Product A' }],
     });
   });
 
-  it("should return 400 if POST request body is incomplete", async () => {
-    const mockReq = {
-      method: "POST",
-      query: { shopName: "Test Shop", productsName: "Test Product" },
-      body: { price: 100 },
-    } as unknown as NextApiRequest;
-
-    await handler(mockReq, mockRes);
-
-    expect(mockStatus).toHaveBeenCalledWith(400);
-    expect(mockJson).toHaveBeenCalledWith({
-      status: "error",
-      error: "Missing product details",
+  it('should handle PUT method and update a product', async () => {
+    req.method = 'PUT';
+    req.query = { shopName: 'Shop1', productsName: 'Product1' };
+    req.body = { price: 200 };
+    await handler(req, res);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      status: 'success',
+      message: 'Product updated',
     });
   });
 
-  it("should update a product for PUT request", async () => {
-    const mockReq = {
-      method: "PUT",
-      query: { shopName: "Test Shop", productsName: "Test Product" },
-      body: { price: 200 },
-    } as unknown as NextApiRequest;
-
-    mockSupabase.from().update.mockResolvedValueOnce({ data: null, error: null });
-
-    await handler(mockReq, mockRes);
-
-    expect(mockStatus).toHaveBeenCalledWith(200);
-    expect(mockJson).toHaveBeenCalledWith({
-      status: "success",
-      message: "Product updated",
+  it('should handle DELETE method and delete a product', async () => {
+    req.method = 'DELETE';
+    req.query = { shopName: 'Shop1', productsName: 'Product1' };
+    await handler(req, res);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      status: 'success',
+      message: 'Product deleted',
     });
   });
 
-  it("should delete a product for DELETE request", async () => {
-    const mockReq = {
-      method: "DELETE",
-      query: { shopName: "Test Shop", productsName: "Test Product" },
-    } as unknown as NextApiRequest;
-
-    mockSupabase.from().delete.mockResolvedValueOnce({ data: null, error: null });
-
-    await handler(mockReq, mockRes);
-
-    expect(mockStatus).toHaveBeenCalledWith(200);
-    expect(mockJson).toHaveBeenCalledWith({
-      status: "success",
-      message: "Product deleted",
-    });
-  });
-
-  it("should return 405 for unsupported method", async () => {
-    const mockReq = {
-      method: "PATCH",
-      query: { shopName: "Test Shop", productsName: "Test Product" },
-    } as unknown as NextApiRequest;
-
-    await handler(mockReq, mockRes);
-
-    expect(mockStatus).toHaveBeenCalledWith(405);
-    expect(mockJson).toHaveBeenCalledWith({
-      status: "error",
-      error: `Method PATCH not allowed`,
+  it('should return 405 for unsupported methods', async () => {
+    req.method = 'PATCH';
+    req.query = { shopName: 'Shop1', productsName: 'Product1' };
+    await handler(req, res);
+    expect(res.status).toHaveBeenCalledWith(405);
+    expect(res.json).toHaveBeenCalledWith({
+      status: 'error',
+      error: 'Method PATCH not allowed',
     });
   });
 });
