@@ -38,7 +38,6 @@ npm run dev
 ```
 
 ## Progress pembuatan dan pembagian tugas per anggota
-    - Selasa, 26 November 2024: Membuat sistem CRUD produk (Nadine)
 
 ### 25 November 2024
 - Muhammad Zufar: Skeleton HTML + CSS dengan NextJS 15
