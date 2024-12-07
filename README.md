@@ -51,6 +51,10 @@ npm run dev
 - Muhammad Zufar: Reactive Theme, pages refactoring
 - Muhammad Zufar: Vercel Deployment on branch "main"
 - Muhammad Zufar: Login + Register Page Skeleton
+- Nadine Angela: Membuat sistem CRUD produk
+
+### 5 Desember 2024
+- Nadine Angela: Membuat unit test sistem CRUD produk
 
 ## Dokumentasi website
 `masukkan gambar dari website yang dibuat`
