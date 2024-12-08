@@ -45,6 +45,11 @@ export default async function handler(
       expiresIn: '1h'
     })
 
+    res.setHeader(
+      'Set-Cookie',
+      `token=${token}; HttpOnly; Path=/; Max-Age=3600`
+    );
+
     // Authentication successful
     return res.status(200).json({ status: 'success', message: 'Login successful', token });
   } catch (error) {
