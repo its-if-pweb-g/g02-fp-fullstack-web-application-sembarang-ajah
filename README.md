@@ -7,7 +7,7 @@
 | NRP | Nama |
 |:-----------:|:--------:|
 | 5025231022  | Muhammad Zufar Al Hafidz  |
-| 5025xxxxxx  | xxxxxxxxxxxxxxx  |
+| 5025231202  | Lailatul Annisa Fitriana  |
 | 5025231287  | Nadine Angela Joelita Irawan  |
 
 ## Aplikasi Web yang dibuat
@@ -51,6 +51,9 @@ npm run dev
 - Muhammad Zufar: Reactive Theme, pages refactoring
 - Muhammad Zufar: Vercel Deployment on branch "main"
 - Muhammad Zufar: Login + Register Page Skeleton
+
+### 8 Desember 2024
+- Lailatul Annisa Fitriana: page login register
 
 ## Dokumentasi website
 `masukkan gambar dari website yang dibuat`
