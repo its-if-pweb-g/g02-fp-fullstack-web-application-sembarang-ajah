@@ -28,7 +28,13 @@ export default async function handler(
 
   try {
     if (req.method == 'GET') {
-      const { data: product } = await supabase.from('products').select('*');
+      const { data: product } = await supabase
+        .from('products')
+        .select('*')
+        .eq('shop_name', shopName)
+        .eq('name', productsName);
+      
+      console.log(productsName);
 
       if (product) {
         return res.status(200).json({ status: 'success', data: product });
