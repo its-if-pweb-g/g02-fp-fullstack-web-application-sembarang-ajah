@@ -119,9 +119,8 @@ export default function ItemsName() {
         </button>
 
         <div className="mt-5 text-lg">
-          <p className="opacity-40">Description</p>
           <hr className="mb-2 bg-background-card opacity-75" />
-          <p>{product.description}</p>
+          <p className='whitespace-pre-line' >{product.description}</p>
         </div>
       </div>
     </section>

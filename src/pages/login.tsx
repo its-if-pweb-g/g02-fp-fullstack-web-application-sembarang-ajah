@@ -1,6 +1,42 @@
+import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Handle successful login
+        console.log('Login successful', data);
+        router.push('/'); // Redirect to home page or another page
+      } else {
+        // Handle login error
+        setError(data.error);
+      }
+    } catch (error) {
+      // Log detailed error information
+      console.error('Fetch error:', error);
+      setError('An unexpected error occurred');
+    }
+  };
+
   return (
     <section className="font-sans text-gray-900 antialiased">
       <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
@@ -21,7 +57,7 @@ export default function Login() {
         </div>
 
         <div className="w-full sm:max-w-md mt-6 px-8 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
-          <form method="POST" action="#">
+          <form onSubmit={handleSubmit}>
             <div>
               <label className="block font-medium text-sm text-gray-700 mb-1" htmlFor="email">
                 Email
@@ -34,6 +70,8 @@ export default function Login() {
                 required
                 autoFocus
                 autoComplete="username"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -48,38 +86,27 @@ export default function Login() {
                 name="password"
                 required
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            <div className="mt-4">
-              <label htmlFor="remember_me" className="flex items-center">
-                <input
-                  type="checkbox"
-                  className="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-                  id="remember_me"
-                  name="remember"
-                />
-                <span className="ml-2 text-sm text-gray-600">Remember me</span>
-              </label>
-            </div>
+            {error && <p className="text-red-500 mt-2">{error}</p>}
 
-            <div className="flex items-center justify-end mt-4">
+            <div className="mt-4">
               <button
                 type="submit"
-                className="inline-flex items-center px-4 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 ml-4 bg-indigo-600 hover:bg-indigo-500 py-3"
+                className="w-full px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-700 transition-colors"
               >
-                Log in
+                Login
               </button>
             </div>
           </form>
 
-          <div className="mt-6 text-center">
-            <span className="text-sm text-gray-600">
-              Dont have an account?{' '}
-              <Link href="/register" className="text-indigo-600 hover:text-indigo-500">
-                Register
-              </Link>
-            </span>
+          <div className="mt-4 text-center">
+            <Link href="/register">
+              <p className="text-indigo-500 hover:text-indigo-700">Dont have an account? Register</p>
+            </Link>
           </div>
         </div>
       </div>

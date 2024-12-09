@@ -6,17 +6,10 @@ const supabase = createClient(
   process.env.SUPABASE_KEY as string
 );
 
-export default async function handler(
+export default async function products(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { shopName, productsName } = req.query;
-
-  if (!shopName || !productsName) {
-    return res
-      .status(400)
-      .json({ status: 'error', error: 'The shop or product is not available' });
-  }
 
   try {
     if (req.method == 'GET') {

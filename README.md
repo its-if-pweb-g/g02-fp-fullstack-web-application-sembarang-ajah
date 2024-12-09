@@ -57,5 +57,8 @@ npm run dev
 - Lailatul Annisa Fitriana: page cart
 - Lailatul Annisa Fitriana: page checkout
 
+### 9 Desember 2024:
+- Muhammad Zufar: Header responsive, fetch itemsname fixed, image fixed
+
 ## Dokumentasi website
 `masukkan gambar dari website yang dibuat`
