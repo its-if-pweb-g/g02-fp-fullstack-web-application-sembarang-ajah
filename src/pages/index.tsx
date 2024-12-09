@@ -54,26 +54,38 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   console.log(isAuthenticated);
 
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products`);
-  const data = await response.json();
+  const text = await response.text(); // Get the response as text
+  console.log('API Response:', text); // Log the response
 
-  if (data.status === 'success') {
-    const mappedProducts = data.data.map((product: Product) => ({
-      id: product.id,
-      productName: product.name,
-      price: product.price,
-      stock: product.stock,
-      description: product.description,
-      shopName: product.shop_name,
-      image: product.image,
-    }));
+  try {
+    const data = JSON.parse(text); // Parse the response as JSON
+    if (data.status === 'success') {
+      const mappedProducts = data.data.map((product: Product) => ({
+        id: product.id,
+        productName: product.name,
+        price: product.price,
+        stock: product.stock,
+        description: product.description,
+        shopName: product.shop_name,
+        image: product.image,
+      }));
 
-    return {
-      props: {
-        products: mappedProducts,
-        isAuthenticated,
-      },
-    };
-  } else {
+      return {
+        props: {
+          products: mappedProducts,
+          isAuthenticated,
+        },
+      };
+    } else {
+      return {
+        props: {
+          products: [],
+          isAuthenticated,
+        },
+      };
+    }
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
     return {
       props: {
         products: [],
