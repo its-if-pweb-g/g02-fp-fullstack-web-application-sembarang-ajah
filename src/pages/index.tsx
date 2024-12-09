@@ -1,16 +1,35 @@
 import type { GetServerSideProps } from 'next';
 import Carousel from '@/components/index/carousel';
 import ProductsPage from '@/components/Products';
-import { Product } from '@/lib/fetchProductData';
 import { verifyToken } from '@/lib/auth';
 import Cookies from 'cookies';
 
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  stock: number;
+  description: string;
+  shop_name: string;
+  image: string;
+}
+
+interface MappedProduct {
+  id: number;
+  product: string;
+  price: number;
+  stock: number;
+  description: string;
+  seller: string;
+  image: string;
+}
+
 interface HomeProps {
-  products: Product[];
+  products: MappedProduct[];
   isAuthenticated: boolean;
 }
 
-const Home: React.FC<HomeProps> = ({ products, isAuthenticated }) => {
+const Home: React.FC<HomeProps> = ({ products }) => {
   return (
     <div>
       <section className="p-4">
@@ -38,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const data = await response.json();
 
   if (data.status === 'success') {
-    const mappedProducts = data.data.map((product: any) => ({
+    const mappedProducts = data.data.map((product: Product) => ({
       id: product.id,
       productName: product.name,
       price: product.price,
