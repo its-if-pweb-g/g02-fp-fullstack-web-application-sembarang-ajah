@@ -67,6 +67,7 @@ npm run dev
 - Nadine Angela: page crud product
 - Nadine Angela: page product detail
 - Nadine Angela: page shop detail
+- Nadine Angela: connect CRUD's frontend and backend
 
 ## Dokumentasi website
 `masukkan gambar dari website yang dibuat`
