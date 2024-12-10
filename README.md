@@ -68,6 +68,7 @@ npm run dev
 - Nadine Angela: page product detail
 - Nadine Angela: page shop detail
 - Nadine Angela: connect CRUD's frontend and backend
+- Lailatul Annisa Fitriana: feature search
 
 ## Dokumentasi website
 `masukkan gambar dari website yang dibuat`
