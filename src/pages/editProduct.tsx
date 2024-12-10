@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const EditProduct: React.FC = () => {
   const [name, setName] = useState("");
@@ -7,10 +8,31 @@ const EditProduct: React.FC = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState<File | null>(null);
 
-  // Handle file upload
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setImage(e.target.files[0]);
+    }
+  };
+
+  const handleUpdateProduct = async () => {
+    try {
+      const response = await axios.put('/api/productsName', {
+        price,
+        stock,
+        description
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDeleteProduct = async () => {
+    try {
+      const response = await axios.delete(`/api/productsName?shopName=${name}&productsName=${name}`);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -22,6 +44,7 @@ const EditProduct: React.FC = () => {
           data-modal-target="updateProductModal"
           data-modal-toggle="updateProductModal"
           className="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+          onClick={handleUpdateProduct}
         >
           Update Product
         </button>
@@ -150,16 +173,18 @@ const EditProduct: React.FC = () => {
               </div>
               <div className="flex items-center space-x-4">
                 <button
-                  type="submit"
+                  type="button"
                   className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  onClick={handleUpdateProduct}
                 >
                   Update product
                 </button>
                 <button
                   type="button"
-                  className="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                  className="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-700 dark:hover:bg-red-800 dark:focus:ring-red-900"
+                  onClick={handleDeleteProduct}
                 >
-                  Delete
+                  Delete product
                 </button>
               </div>
             </form>

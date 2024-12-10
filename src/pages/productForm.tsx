@@ -7,17 +7,35 @@ const ProductForm: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [description, setDescription] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Form submission logic here
-    console.log({
-      productName,
-      price,
-      stock,
-      image,
-      description,
-    });
+    const formData = new FormData();
+    formData.append("name", productName);
+    formData.append("price", price.toString());
+    formData.append("stock", stock.toString());
+    formData.append("description", description);
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    try {
+      const response = await fetch("/api/products/[productsName]", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Product added successfully:", result);
+      } else {
+        const error = await response.json();
+        console.error("Error adding product:", error);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
   };
 
   return (
