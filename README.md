@@ -57,5 +57,8 @@ npm run dev
 - Lailatul Annisa Fitriana: page cart
 - Lailatul Annisa Fitriana: page checkout
 
+### 10 Desember 2024
+- Lailatul Annisa Fitriana: feature search
+
 ## Dokumentasi website
 `masukkan gambar dari website yang dibuat`
