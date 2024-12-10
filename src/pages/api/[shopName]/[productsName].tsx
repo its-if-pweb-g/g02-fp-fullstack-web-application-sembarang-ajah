@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { authMiddleware } from '@/lib/authMiddleware';
 
 const supabase = createClient(
   process.env.SUPABASE_URL as string,
@@ -14,10 +15,10 @@ interface Product {
   description: string;
 }
 
-export default async function handler(
+const handler = async(
   req: NextApiRequest,
   res: NextApiResponse
-) {
+) => {
   const { shopName, productsName } = req.query;
 
   if (!shopName || !productsName) {
@@ -28,7 +29,13 @@ export default async function handler(
 
   try {
     if (req.method == 'GET') {
-      const { data: product } = await supabase.from('products').select('*');
+      const { data: product } = await supabase
+        .from('products')
+        .select('*')
+        .eq('shop_name', shopName)
+        .eq('name', productsName);
+      
+      console.log(productsName);
 
       if (product) {
         return res.status(200).json({ status: 'success', data: product });
@@ -122,3 +129,5 @@ export default async function handler(
       .json({ status: 'error', error: 'Internal server error' });
   }
 }
+
+export default authMiddleware(handler, ['POST', 'PUT', 'DELETE']);

@@ -7,9 +7,13 @@ import Link from 'next/link';
 interface ProductBoxProps {
   product: string;
   image: string;
-  price: string;
+  price: number;
   description: string;
   seller: string;
+}
+
+function formatPrice(price: number): string {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
 const ProductBox: React.FC<ProductBoxProps> = ({ product, image, price, description, seller }) => {
@@ -26,9 +30,9 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, image, price, descript
           alt={product}
           className="w-full h-48 object-cover" />
         <div className="p-4">
-          <p className="text-base font-regular leading-snug line-clamp-2">{product}</p>
-          <p className="text-lg font-semibold">{price}</p>
-          <p className="">{ description }</p>
+          <p className="text-base font-regular leading-snug line-clamp-2 max-h-12 overflow-hidden">{product}</p>
+          <p className="text-lg font-semibold">Rp. {formatPrice(price)}</p>
+          <p className="tracking-normal text-sm mt-2">{ description }</p>
         </div>
       </div>
     </Link>
