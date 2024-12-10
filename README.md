@@ -38,8 +38,6 @@ npm run dev
 ```
 
 ## Progress pembuatan dan pembagian tugas per anggota
-    - Selasa, 26 November 2024: Membuat sistem CRUD produk (Nadine)
-
 ### 25 November 2024
 - Muhammad Zufar: Skeleton HTML + CSS dengan NextJS 15
 - Muhammad Zufar: Landing Page, Header, Carousel Skeleton, Popular Product Skeleton
@@ -51,11 +49,17 @@ npm run dev
 - Muhammad Zufar: Reactive Theme, pages refactoring
 - Muhammad Zufar: Vercel Deployment on branch "main"
 - Muhammad Zufar: Login + Register Page Skeleton
+- Nadine Angela: Membuat sistem CRUD produk
 
 ### 8 Desember 2024
 - Lailatul Annisa Fitriana: page login register
 - Lailatul Annisa Fitriana: page cart
 - Lailatul Annisa Fitriana: page checkout
+
+### 10 Desember 2024
+- Nadine Angela: page crud product
+- Nadine Angela: page product detail
+- Nadine Angela: page shop detail
 
 ## Dokumentasi website
 `masukkan gambar dari website yang dibuat`
