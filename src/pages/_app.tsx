@@ -11,11 +11,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const noHeaderRoutes = ["/login", "/register"];
 
   return (
-    <CartProvider>  {/* Wrap the application in CartProvider */}
-      <div>
-        {!noHeaderRoutes.includes(router.pathname) && <Header />}
-        <Component {...pageProps} />
-      </div>
-    </CartProvider>
+        <CartProvider>  {/* Wrap the application in CartProvider */}
+        <div>
+          {!noHeaderRoutes.includes(router.pathname) && <Header />}
+          <Component {...pageProps} />
+        </div>
+      </CartProvider>
   );
 }

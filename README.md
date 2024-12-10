@@ -51,10 +51,17 @@ npm run dev
 - Muhammad Zufar: Login + Register Page Skeleton
 - Nadine Angela: Membuat sistem CRUD produk
 
+### 5 Desember
+- Nadine Angela: Membuat unit test sistem CRUD produk
+
 ### 8 Desember 2024
 - Lailatul Annisa Fitriana: page login register
 - Lailatul Annisa Fitriana: page cart
 - Lailatul Annisa Fitriana: page checkout
+
+### 9 Desember 2024:
+- Muhammad Zufar: Header responsive, fetch itemsname fixed, image fixed
+- Muhammad Zufar: JWT Login with cookies, products POST, PUT, DELETE route middleware auth guard
 
 ### 10 Desember 2024
 - Nadine Angela: page crud product

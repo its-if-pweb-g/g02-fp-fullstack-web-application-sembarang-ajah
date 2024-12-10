@@ -3,7 +3,7 @@ import ProductBox from '@/components/ProductBox';
 
 interface Product {
   product: string;
-  price: string;
+  price: number;
   description: string;
   seller: string;
   image: string;
