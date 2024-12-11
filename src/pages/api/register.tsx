@@ -16,7 +16,7 @@ export default async function handler(
   const { email, name, password, roles } = req.body;
 
   if (!email || !password || !roles) return res.status(400).json({ status: 'error', error: 'Email and password are required' });
-  if(roles !== 'penjual' && roles !== 'pembeli') return res.status(400).json({ status: 'error', error: 'Invalid role' });
+  if(roles !== 'admin' && roles !== 'user') return res.status(400).json({ status: 'error', error: 'Invalid role' });
 
   try {
     const { data: user } = await supabase

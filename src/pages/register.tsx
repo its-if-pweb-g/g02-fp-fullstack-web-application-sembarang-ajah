@@ -145,8 +145,8 @@ export default function Register() {
                 onChange={handleRoleChange}
                 className="px-3 py-2 border border-gray-300 focus:border-indigo-500 focus:outline-indigo-500 rounded-md shadow-sm block w-full"
               >
-                <option value="penjual">Penjual</option>
-                <option value="pembeli">Pembeli</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
               </select>
             </div>
 
